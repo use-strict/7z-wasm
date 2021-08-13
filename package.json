@@ -1,0 +1,40 @@
+{
+  "name": "7z-wasm",
+  "version": "1.0.0-beta.0",
+  "description": "7-Zip for JavaScript environments, compiled to WASM",
+  "bin": "bin/cli",
+  "main": "7zz.umd.js",
+  "module": "7zz.es6.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/use-strict/7z-wasm.git"
+  },
+  "keywords": [
+    "7-Zip",
+    "7zip",
+    "archive",
+    "7z",
+    "7zz",
+    "wasm",
+    "tar",
+    "zip",
+    "rar",
+    "gz",
+    "bz",
+    "bz2",
+    "nsis"
+  ],
+  "author": "Alexandru Ciuca",
+  "license": "SEE LICENSE IN License.txt",
+  "bugs": {
+    "url": "https://github.com/use-strict/7z-wasm/issues"
+  },
+  "homepage": "https://github.com/use-strict/7z-wasm#README.md",
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
