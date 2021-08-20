@@ -40,7 +40,7 @@ export interface FileSystem {
     //
     // paths
     //
-    lookupPath(path: string, opts: FSLookupOpts): FSLookup;
+    lookupPath(path: string, opts?: FSLookupOpts): FSLookup;
     getPath(node: FSNode): string;
 
     //
@@ -122,9 +122,9 @@ export interface FileSystem {
     cwd(): string;
     chdir(path: string): void;
     init(
-        input: null | (() => number | null),
-        output: null | ((c: number) => any),
-        error: null | ((c: number) => any),
+        input?: null | (() => number | null),
+        output?: null | ((c: number) => any),
+        error?: null | ((c: number) => any),
     ): void;
 
     createLazyFile(
