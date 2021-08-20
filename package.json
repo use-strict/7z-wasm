@@ -1,6 +1,6 @@
 {
   "name": "7z-wasm",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "7-Zip for JavaScript environments, compiled to WASM",
   "bin": "bin/cli",
   "main": "7zz.umd.js",
