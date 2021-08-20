@@ -67,7 +67,7 @@ export interface FileSystem {
     //
     syncfs(populate: boolean, callback: (e: number | null) => void): void;
     syncfs(callback: (e: number | null) => void, populate?: boolean): void;
-    mount(type: FileSystem, opts: any, mountpoint: string): any;
+    mount(type: FileSystem, opts: any, mountpoint: string): FSNode;
     unmount(mountpoint: string): void;
 
     mkdir(path: string, mode?: number): FSNode;
@@ -173,9 +173,18 @@ export interface FSStream {
     isAppend: boolean;
 }
 export interface FSNode {
+    contents: Record<string, FSNode>;
+    id: number;
+    mode: number;
     mount: unknown;
     name: string;
     parent: FSNode | undefined;
+    rdev: number;
+    timestamp: number;
+    isDevice(): boolean;
+    isFolder(): boolean;
+    read: boolean;
+    write: boolean;
 }
 
 export interface FSNodeAttr {
