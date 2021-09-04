@@ -36,5 +36,8 @@
   "homepage": "https://github.com/use-strict/7z-wasm#README.md",
   "engines": {
     "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
   }
 }
