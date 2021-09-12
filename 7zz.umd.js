@@ -124,6 +124,7 @@ Module['ready'] = new Promise(function(resolve, reject) {
 // refer to Module (if they choose; they can also define Module)
 Module.noInitialRun = true;
 
+
 // Sometimes an existing Module object exists with properties
 // meant to overwrite the default module functionality. Here
 // we collect those properties and reapply _after_ we configure
@@ -6259,6 +6260,7 @@ Module.FS = FS;
 Module.NODEFS = NODEFS;
 Module.WORKERFS = WORKERFS;
 Module.callMain = callMain;
+
 
   return SevenZip.ready
 }
