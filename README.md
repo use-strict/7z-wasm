@@ -4,7 +4,7 @@
 
 - Runs in any JavaScript environment that supports WASM (Browser or NodeJS)
 - Supports all file formats that the full `7zz` CLI supports.
-- Only Emscripten NODEFS adapter is included by default.
+- Only Emscripten NODEFS and WORKERFS adapters are included by default.
 
 Inspired by https://github.com/sonictruth/7zip.js
 

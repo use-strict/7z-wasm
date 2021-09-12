@@ -33,6 +33,7 @@ export interface ExitStatus {
 export interface SevenZipModule {
     FS: FileSystem;
     NODEFS: FileSystem;
+    WORKERFS: FileSystem;
     callMain(args: string[]): void;
 }
 
