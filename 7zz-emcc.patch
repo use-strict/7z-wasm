@@ -40,9 +40,10 @@ new file mode 100644
 index 0000000..2ea3a96
 --- /dev/null
 +++ b/CPP/7zip/Bundles/Alone2/post.js
-@@ -0,0 +1,3 @@
+@@ -0,0 +1,4 @@
 +Module.FS = FS;
 +Module.NODEFS = NODEFS;
++Module.WORKERFS = WORKERFS;
 +Module.callMain = callMain;
 \ No newline at end of file
 diff --git a/CPP/7zip/Bundles/Alone2/pre.js b/CPP/7zip/Bundles/Alone2/pre.js
