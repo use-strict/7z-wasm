@@ -1,9 +1,9 @@
 diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
-index 5907421..1e78973 100644
+index f65cff2..1761070 100644
 --- a/CPP/7zip/7zip_gcc.mak
 +++ b/CPP/7zip/7zip_gcc.mak
-@@ -12,9 +12,11 @@ MY_ASM = asmc
- PROGPATH = $(O)/$(PROG)
+@@ -17,9 +17,11 @@ PROGPATH = $(O)/$(PROG)
+ PROGPATH_STATIC = $(O)/$(PROG)s
  
  
 +ifndef EMSCRIPTEN
@@ -14,7 +14,7 @@ index 5907421..1e78973 100644
  
  # for object file
  CFLAGS_BASE_LIST = -c
-@@ -72,7 +74,11 @@ endif
+@@ -82,7 +84,11 @@ endif
  
  else
  
@@ -55,7 +55,7 @@ index 0000000..2084ccb
 +Module.noInitialRun = true;
 \ No newline at end of file
 diff --git a/CPP/Windows/System.cpp b/CPP/Windows/System.cpp
-index 099407e..2118c0a 100644
+index 3a14b77..585008a 100644
 --- a/CPP/Windows/System.cpp
 +++ b/CPP/Windows/System.cpp
 @@ -6,6 +6,7 @@
@@ -66,12 +66,11 @@ index 099407e..2118c0a 100644
  #else
  #include <sys/sysinfo.h>
  #endif
-@@ -205,6 +206,8 @@ bool GetRamSize(UInt64 &size)
-   
+@@ -208,6 +209,7 @@ bool GetRamSize(UInt64 &size)
+   #elif defined(__FreeBSD_kernel__) && defined(__GLIBC__)
+   // GNU/kFreeBSD Debian
    // fixme
- 
 +  #elif defined(__EMSCRIPTEN__)
-+
    #else
  
    struct sysinfo info;
