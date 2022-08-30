@@ -1,6 +1,6 @@
 # 7-Zip WASM
 
-7-Zip compiled to WASM with emscripten. Based on 7-Zip 21.03 beta (2021-07-20).
+7-Zip compiled to WASM with emscripten. Based on 7-Zip 22.01 (2022-07-15).
 
 - Runs in any JavaScript environment that supports WASM (Browser or NodeJS)
 - Supports all file formats that the full `7zz` CLI supports.
