@@ -182,8 +182,8 @@ export interface FSNode {
     parent: FSNode | undefined;
     rdev: number;
     timestamp: number;
-    isDevice(): boolean;
-    isFolder(): boolean;
+    isDevice: boolean;
+    isFolder: boolean;
     read: boolean;
     write: boolean;
 }
