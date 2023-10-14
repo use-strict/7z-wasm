@@ -28,6 +28,15 @@ SevenZip({
         }
     }
 }).then(sevenZip => {
+    // HACK: The WASM 7-Zip sets file mode to 000 when extracting tar archives, making it impossible to extract sub-folders
+    var chmodOrig = sevenZip.FS.chmod;
+    sevenZip.FS.chmod = function(path, mode, dontFollow) {
+        if (!mode) {
+            return;
+        }
+        chmodOrig(path, mode, dontFollow);
+    };
+
     var cwd = process.cwd();
     var hostRoot = path.parse(cwd).root;
     var hostDir = path.relative(hostRoot, cwd).split(path.sep).join("/");

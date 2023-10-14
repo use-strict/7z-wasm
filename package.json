@@ -7,7 +7,7 @@
   "module": "7zz.es6.js",
   "types": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -39,5 +39,8 @@
   },
   "dependencies": {
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0"
   }
 }
