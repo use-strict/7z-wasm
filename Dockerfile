@@ -7,7 +7,7 @@ RUN apt-get install -y wget cmake make build-essential python3 git p7zip
 WORKDIR /
 RUN git clone https://github.com/emscripten-core/emsdk.git
 WORKDIR /emsdk
-RUN git checkout 2.0.29
+RUN git checkout 3.1.67
 RUN ./emsdk install latest
 RUN ./emsdk activate latest
 

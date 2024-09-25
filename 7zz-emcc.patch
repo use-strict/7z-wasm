@@ -74,3 +74,35 @@ index 3a14b77..585008a 100644
    #else
  
    struct sysinfo info;
+diff --git a/CPP/Windows/SystemInfo.cpp b/CPP/Windows/SystemInfo.cpp
+index d882a8e..5b29ab3 100644
+--- a/CPP/Windows/SystemInfo.cpp
++++ b/CPP/Windows/SystemInfo.cpp
+@@ -17,8 +17,9 @@
+ #ifdef __APPLE__
+ #include <sys/sysctl.h>
+ #elif !defined(_AIX)
+-
++#ifndef __EMSCRIPTEN__
+ #include <sys/auxv.h>
++#endif
+ 
+ // #undef AT_HWCAP    // to debug
+ // #undef AT_HWCAP2   // to debug
+@@ -672,6 +673,7 @@ void AddCpuFeatures(AString &s)
+ 
+   #endif
+ 
++  #ifndef __EMSCRIPTEN__
+ 
+   #ifdef AT_HWCAP
+   s.Add_OptSpaced("hwcap:");
+@@ -708,6 +710,8 @@ void AddCpuFeatures(AString &s)
+     }
+   }
+   #endif // AT_HWCAP2
++  
++  #endif // __EMSCRIPTEN__
+   #endif // _AIX
+   #endif // _WIN32
+ }
