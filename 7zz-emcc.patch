@@ -1,20 +1,37 @@
+From 1eb116b7a837ef81c221badde3819aad5dfa5be0 Mon Sep 17 00:00:00 2001
+From: Jesse Hines <jesse.r.s.hines@gmail.com>
+Date: Sat, 21 Jun 2025 19:23:07 -0400
+Subject: [PATCH] Patch for Emscripten
+
+---
+ CPP/7zip/7zip_gcc.mak                 | 6 ++++++
+ CPP/7zip/Bundles/Alone2/makefile.emcc | 3 +++
+ CPP/7zip/Bundles/Alone2/post.js       | 4 ++++
+ CPP/7zip/Bundles/Alone2/pre.js        | 1 +
+ CPP/Windows/System.cpp                | 2 ++
+ CPP/Windows/SystemInfo.cpp            | 5 +++++
+ 6 files changed, 21 insertions(+)
+ create mode 100644 CPP/7zip/Bundles/Alone2/makefile.emcc
+ create mode 100644 CPP/7zip/Bundles/Alone2/post.js
+ create mode 100644 CPP/7zip/Bundles/Alone2/pre.js
+
 diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
-index f65cff2..1761070 100644
+index fcb580a..0ccea23 100644
 --- a/CPP/7zip/7zip_gcc.mak
 +++ b/CPP/7zip/7zip_gcc.mak
-@@ -17,9 +17,11 @@ PROGPATH = $(O)/$(PROG)
+@@ -23,9 +23,11 @@ PROGPATH = $(O)/$(PROG)
  PROGPATH_STATIC = $(O)/$(PROG)s
  
  
 +ifndef EMSCRIPTEN
  ifneq ($(CC), xlc)
- CFLAGS_WARN_WALL = -Wall -Werror -Wextra
+ CFLAGS_WARN_WALL = -Werror -Wall -Wextra
  endif
 +endif
  
  # for object file
- CFLAGS_BASE_LIST = -c
-@@ -82,7 +84,11 @@ endif
+ # -Wa,-aln=test.s
+@@ -111,7 +113,11 @@ endif
  
  else
  
@@ -23,8 +40,8 @@ index f65cff2..1761070 100644
 +else
  LDFLAGS = $(LDFLAGS_STATIC)
 +endif
- # -s is not required for clang, do we need it for GGC ???
- # -s
+ # -z force-bti
+ # -s is not required for clang, do we need it for GCC ???
  
 diff --git a/CPP/7zip/Bundles/Alone2/makefile.emcc b/CPP/7zip/Bundles/Alone2/makefile.emcc
 new file mode 100644
@@ -37,7 +54,7 @@ index 0000000..1e2361c
 +PROG = 7zz.js
 diff --git a/CPP/7zip/Bundles/Alone2/post.js b/CPP/7zip/Bundles/Alone2/post.js
 new file mode 100644
-index 0000000..2ea3a96
+index 0000000..607ce26
 --- /dev/null
 +++ b/CPP/7zip/Bundles/Alone2/post.js
 @@ -0,0 +1,4 @@
@@ -55,18 +72,18 @@ index 0000000..2084ccb
 +Module.noInitialRun = true;
 \ No newline at end of file
 diff --git a/CPP/Windows/System.cpp b/CPP/Windows/System.cpp
-index 3a14b77..585008a 100644
+index 540aa40..f02d252 100644
 --- a/CPP/Windows/System.cpp
 +++ b/CPP/Windows/System.cpp
-@@ -6,6 +6,7 @@
- #include <unistd.h>
- #ifdef __APPLE__
+@@ -8,6 +8,7 @@
+ #if defined(__APPLE__) || defined(__DragonFly__) || \
+     defined(BSD) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
  #include <sys/sysctl.h>
 +#elif __EMSCRIPTEN__
  #else
  #include <sys/sysinfo.h>
  #endif
-@@ -208,6 +209,7 @@ bool GetRamSize(UInt64 &size)
+@@ -262,6 +263,7 @@ bool GetRamSize(size_t &size)
    #elif defined(__FreeBSD_kernel__) && defined(__GLIBC__)
    // GNU/kFreeBSD Debian
    // fixme
@@ -75,21 +92,20 @@ index 3a14b77..585008a 100644
  
    struct sysinfo info;
 diff --git a/CPP/Windows/SystemInfo.cpp b/CPP/Windows/SystemInfo.cpp
-index d882a8e..5b29ab3 100644
+index 4ad1fcc..982946a 100644
 --- a/CPP/Windows/SystemInfo.cpp
 +++ b/CPP/Windows/SystemInfo.cpp
-@@ -17,8 +17,9 @@
- #ifdef __APPLE__
- #include <sys/sysctl.h>
- #elif !defined(_AIX)
--
+@@ -35,7 +35,9 @@
+ #ifdef Z7_GETAUXV_AVAILABLE
+ // #if defined __has_include
+ // #if __has_include (<sys/auxv.h>)
 +#ifndef __EMSCRIPTEN__
  #include <sys/auxv.h>
 +#endif
- 
- // #undef AT_HWCAP    // to debug
- // #undef AT_HWCAP2   // to debug
-@@ -672,6 +673,7 @@ void AddCpuFeatures(AString &s)
+ #define USE_HWCAP
+ // #endif
+ // #endif
+@@ -803,6 +805,7 @@ void AddCpuFeatures(AString &s)
  
    #endif
  
@@ -97,7 +113,7 @@ index d882a8e..5b29ab3 100644
  
    #ifdef AT_HWCAP
    s.Add_OptSpaced("hwcap:");
-@@ -708,6 +710,8 @@ void AddCpuFeatures(AString &s)
+@@ -848,6 +851,8 @@ void AddCpuFeatures(AString &s)
      }
    }
    #endif // AT_HWCAP2
@@ -106,3 +122,6 @@ index d882a8e..5b29ab3 100644
    #endif // _AIX
    #endif // _WIN32
  }
+-- 
+2.43.0
+

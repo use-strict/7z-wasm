@@ -12,7 +12,7 @@ RUN ./emsdk install latest
 RUN ./emsdk activate latest
 
 WORKDIR /7z-src
-RUN wget https://www.7-zip.org/a/7z2201-src.7z
-RUN p7zip -d 7z2201-src.7z
+RUN wget https://www.7-zip.org/a/7z2409-src.7z
+RUN p7zip -d 7z2409-src.7z
 
 WORKDIR /app
