@@ -1,2 +1,5 @@
 node_modules
 /test/out
+7zz.es6.js
+7zz.umd.js
+7zz.wasm

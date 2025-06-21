@@ -17,9 +17,9 @@ jobs:
       uses: actions/checkout@v4
 
     # Disabled for now as we commit the build artifacts directly to git
-    # - name: Build with Docker
-    #   run: ./build
-    #   working-directory: ${{ github.workspace }}
+    - name: Build with Docker
+      run: ./build
+      working-directory: ${{ github.workspace }}
 
     - name: Install Node.js
       uses: actions/setup-node@v3
